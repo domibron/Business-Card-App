@@ -7,6 +7,8 @@ using TMPro;
 
 public class QRScanner : MonoBehaviour
 {
+    private Core core;
+
     [SerializeField]
     private RawImage _rawImageBackGround;
 
@@ -23,6 +25,11 @@ public class QRScanner : MonoBehaviour
     private WebCamTexture _cameraTexture;
 
 
+    void Awake()
+    {
+        core = GetComponentInParent<Core>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +40,7 @@ public class QRScanner : MonoBehaviour
     void Update()
     {
         UpdateCameraRender();
+        StartCoroutine(Scan());
     }
 
 
@@ -75,10 +83,10 @@ public class QRScanner : MonoBehaviour
 
     public void OnClickScan()
     {
-        Scan();
+        StartCoroutine(Scan());
     }
 
-    private void Scan()
+    private IEnumerator Scan()
     {
         try
         {
@@ -87,6 +95,11 @@ public class QRScanner : MonoBehaviour
             if (result != null)
             {
                 _textOut.text = result.Text;
+                if (result.Text.Contains("|"))
+                {
+                    core.scanText = result.Text;
+                    core.OpenMenu("saved cards");
+                }
             }
             else
             {
@@ -97,5 +110,7 @@ public class QRScanner : MonoBehaviour
         {
             _textOut.text = "failed in try";
         }
+
+        yield return new WaitForSeconds(1f);
     }
 }

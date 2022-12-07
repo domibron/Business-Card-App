@@ -9,6 +9,10 @@ public class Core : MonoBehaviour
 
     public Texture2D QRCode;
 
+    public string QRText;
+
+    public string scanText;
+
     [SerializeField] Menu[] menus;
 
     // Start is called before the first frame update
@@ -35,13 +39,30 @@ public class Core : MonoBehaviour
         //     }
         // }
 
-        if (PlayerPrefs.HasKey("qr")) ReadFromFile();
+        if (PlayerPrefs.HasKey("qr")) ReadFromFileQR();
+        if (PlayerPrefs.HasKey("qrtext")) ReadFromFileQRText();
     }
 
 
 
 
-    public void WriteToFile(Texture2D texture)
+    public void WriteToFileQRText(string text)
+    {
+        print(text);
+        PlayerPrefs.SetString("qrtext", text);
+        PlayerPrefs.Save();
+    }
+
+    public void ReadFromFileQRText()
+    {
+        string tempstring = PlayerPrefs.GetString("qrtext");
+        QRText = tempstring;
+    }
+
+
+    // == texture save and load
+
+    public void WriteToFileQR(Texture2D texture)
     {
         byte[] bytes;
         bytes = texture.EncodeToPNG();
@@ -60,7 +81,7 @@ public class Core : MonoBehaviour
         //Save_Manager.instance.Save();
     }
 
-    public void ReadFromFile()
+    public void ReadFromFileQR()
     {
         string tempstring = PlayerPrefs.GetString("qr");
         //string tempstring = Save_Manager.instance.saveData.QRCODE;

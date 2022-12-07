@@ -8,6 +8,8 @@ using TMPro;
 
 public class QRGenerator : MonoBehaviour
 {
+    private Core core;
+
     [SerializeField]
     private RawImage _rawInageReciver;
     [SerializeField]
@@ -19,6 +21,7 @@ public class QRGenerator : MonoBehaviour
     void Start()
     {
         _storeEncodedTexture = new Texture2D(256, 256);
+        core = GetComponentInParent<Core>();
     }
 
     private Color32[] Encode(string textForEncoding, int width, int height)
@@ -40,6 +43,11 @@ public class QRGenerator : MonoBehaviour
         EncodeTextToQRCode();
     }
 
+    public void SaveCode()
+    {
+        core.WriteToFile(core.QRCode);
+    }
+
     private void EncodeTextToQRCode()
     {
         string textWrite = string.IsNullOrEmpty(_textInputFeild.text) ? "You should write something" : _textInputFeild.text;
@@ -50,7 +58,8 @@ public class QRGenerator : MonoBehaviour
         _storeEncodedTexture.Apply();
 
         _rawInageReciver.texture = _storeEncodedTexture;
-        print(_storeEncodedTexture.ToString());
+        core.QRCode = _storeEncodedTexture;
 
+        //core.WriteToFile(_storeEncodedTexture);
     }
 }

@@ -100,7 +100,7 @@ public class Core : MonoBehaviour
         fileSave.Close();
     }
     //LOAD TEXTURE
-    string filename = "s01_texture.png";
+    // string filename = "s01_texture.png";
     Texture2D loaded_s01_texture;
     void LoadFromFile(Texture2D texture, string filename)
     {

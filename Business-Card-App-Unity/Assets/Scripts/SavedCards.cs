@@ -46,12 +46,12 @@ public class SavedCards : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        AddCardPopUpRun();
+        StartCoroutine(AddCardPopUpRun());
 
 
     }
 
-    private void AddCardPopUpRun()
+    private IEnumerator AddCardPopUpRun()
     {
         if (gameObject.activeSelf && !string.IsNullOrEmpty(core.scanText))
         {
@@ -59,6 +59,8 @@ public class SavedCards : MonoBehaviour
             SetUpPopUp();
             core.scanText = "";
         }
+
+        yield return new WaitForSeconds(1f);
     }
 
     private void SetUpPopUp()
@@ -79,10 +81,10 @@ public class SavedCards : MonoBehaviour
             CancelButton.SetActive(true);
             OkButton.SetActive(false);
 
-            Name_text.text = dataList[0];
-            Email_text.text = dataList[1];
-            Phone_text.text = dataList[2];
-            Website_text.text = dataList[3];
+            Name_text.text = "Name: " + dataList[0];
+            Email_text.text = "Email: " + dataList[1];
+            Phone_text.text = "Phone: " + dataList[2];
+            Website_text.text = "Website: " + dataList[3];
         }
         PopUp.SetActive(true);
     }
@@ -91,10 +93,7 @@ public class SavedCards : MonoBehaviour
     {
         string[] scanData = core.scanText.Split("|");
 
-        if (scanData.Length < 4)
-        {
-            LackOfData = true;
-        }
+        if (scanData.Length < 4) LackOfData = true;
         else LackOfData = false;
 
         dataList.Clear();

@@ -13,6 +13,8 @@ public class Core : MonoBehaviour
 
     public string scanText;
 
+    public string savedCards;
+
     [SerializeField] Menu[] menus;
 
     // Start is called before the first frame update
@@ -41,10 +43,21 @@ public class Core : MonoBehaviour
 
         if (PlayerPrefs.HasKey("qr")) ReadFromFileQR();
         if (PlayerPrefs.HasKey("qrtext")) ReadFromFileQRText();
+        if (PlayerPrefs.HasKey("savedcards")) savedCards = GenericRead("savedcards");
     }
 
 
+    public void GenericSave(string key, string data)
+    {
+        print($"saving {key} with {data}");
+        PlayerPrefs.SetString(key, data);
+        PlayerPrefs.Save();
+    }
 
+    public string GenericRead(string key)
+    {
+        return PlayerPrefs.GetString(key);
+    }
 
     public void WriteToFileQRText(string text)
     {

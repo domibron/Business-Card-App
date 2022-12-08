@@ -30,6 +30,8 @@ public class Card_details : MonoBehaviour
     {
         if (string.IsNullOrEmpty(data))
             data = "john doe|johndoe@gmail.com|+44 10000000000|https://www.johndoe.com/aboutme";
+
+
     }
 
     // Update is called once per frame

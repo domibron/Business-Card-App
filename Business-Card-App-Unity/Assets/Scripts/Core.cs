@@ -108,7 +108,6 @@ public class Core : MonoBehaviour
         for (int i = 0; i < allNums.Length; i++)
         {
             bytes[i] = byte.Parse(allNums[i]);
-            print(bytes[i]);
         }
 
         Texture2D texture = new Texture2D(256, 256);

@@ -63,5 +63,6 @@ public class CreatorCard : MonoBehaviour
         string combination = Name_input_text + "|" + Email_input_text + "|" + Phone_input_text + "|" + Website_input_text;
 
         qrGenerator.GenQR(combination);
+        core.OpenMenu("main menu");
     }
 }

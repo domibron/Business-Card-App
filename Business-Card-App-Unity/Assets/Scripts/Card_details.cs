@@ -6,6 +6,8 @@ using TMPro;
 
 public class Card_details : MonoBehaviour
 {
+    private SavedCards SC;
+
     [HideInInspector]
     public string data;
 
@@ -23,7 +25,7 @@ public class Card_details : MonoBehaviour
     private string phone;
     private string website;
 
-    List<string> details = new List<string>();
+    public List<string> details = new List<string>();
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,7 @@ public class Card_details : MonoBehaviour
         if (string.IsNullOrEmpty(data))
             data = "john doe|johndoe@gmail.com|+44 10000000000|https://www.johndoe.com/aboutme";
 
+        SC = GetComponentInParent<SavedCards>();
 
     }
 
@@ -38,6 +41,11 @@ public class Card_details : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void Onclick()
+    {
+        GetComponentInParent<SavedCards>().UseCardMenu(gameObject);
     }
 
     public void setData(string _data)
